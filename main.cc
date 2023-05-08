@@ -36,6 +36,8 @@ void llegeixParaulesFitxer(ifstream& f, map<string, int>& freq) {
         }
         else cadenaAct += act;
     }
+
+    for (auto it : freq) cout << it.first << ": " << it.second << endl;
 }
 
 void llegeixLletresFitxer(ifstream& f, map<char, int>& freq) {
@@ -43,6 +45,8 @@ void llegeixLletresFitxer(ifstream& f, map<char, int>& freq) {
         char act = f.get();
         ++freq[act];
     }
+
+    for (auto it : freq) cout << it.first << ": " << it.second << endl;
 }
 
 int main() {
@@ -63,12 +67,10 @@ int main() {
                 if (opcio==1) {
                     map<string, int> freq;
                     llegeixParaulesFitxer(f, freq);
-                    for (auto it : freq) cout << it.first << ": " << it.second << endl;
                 }
                 else if (opcio==2) {
                     map<char, int> freq;
                     llegeixLletresFitxer(f, freq);
-                    for (auto it : freq) cout << it.first << ": " << it.second << endl;
                 }
 
                 f.close();
