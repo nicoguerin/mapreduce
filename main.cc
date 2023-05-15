@@ -41,9 +41,10 @@ void llegeixParaulesFitxer(ifstream& f, map<string, int>& freq) {
 }
 
 void llegeixLletresFitxer(ifstream& f, map<char, int>& freq) {
+    char act = f.get();
     while (f) {
-        char act = f.get();
-        ++freq[act];
+        if (!esSeparador(act)) ++freq[act];
+        act = f.get();
     }
 
     for (auto it : freq) cout << it.first << ": " << it.second << endl;
@@ -72,7 +73,7 @@ int main() {
                     map<char, int> freq;
                     llegeixLletresFitxer(f, freq);
                 }
-
+                
                 f.close();
                 cout << endl;
             }
