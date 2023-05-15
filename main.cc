@@ -24,7 +24,7 @@ string generaRutaFitxer() {
     return ubicacioFitxer;
 }
 
-void llegeixParaulesFitxer(ifstream& f, map<string, int>& freq) {
+void llegeixParaulesFitxer(ifstream& f, map<string, int>& freq, string ubicacioFitxer) {
     string cadenaAct = "";
     while (f) {
         char act = f.get();
@@ -37,26 +37,30 @@ void llegeixParaulesFitxer(ifstream& f, map<string, int>& freq) {
         else cadenaAct += act;
     }
 
-    for (auto it : freq) cout << it.first << ": " << it.second << endl;
+    ofstream resum("./fitxers/resumParaules.txt");
+    resum << "APARICIONS DE CADA PARAULA DEL FITXER " << ubicacioFitxer;
+    for (auto it : freq) resum << endl << it.first << ": " << it.second;
+    f.close();
 }
 
-void llegeixLletresFitxer(ifstream& f, map<char, int>& freq) {
+void llegeixLletresFitxer(ifstream& f, map<char, int>& freq, string ubicacioFitxer) {
     char act = f.get();
     while (f) {
         if (!esSeparador(act)) ++freq[act];
         act = f.get();
     }
 
-    for (auto it : freq) cout << it.first << ": " << it.second << endl;
+    ofstream resum("./fitxers/resumLletres.txt");
+    resum << "APARICIONS DE CADA LLETRA DEL FITXER " << ubicacioFitxer;
+    for (auto it : freq) resum << endl << it.first << ": " << it.second;
+    f.close();
 }
 
 int main() {
     int opcio = 0;
     while (opcio!=3) {
         mostraMenu();
-
-        cout << "Introdueix una opcio: ";
-        cin >> opcio;
+        cout << "Introdueix una opcio: "; cin >> opcio;
 
         if (opcio==3) cout << "Sortint del programa..." << endl;
         else {
@@ -67,11 +71,11 @@ int main() {
             else {
                 if (opcio==1) {
                     map<string, int> freq;
-                    llegeixParaulesFitxer(f, freq);
+                    llegeixParaulesFitxer(f, freq, ubicacioFitxer);
                 }
                 else if (opcio==2) {
                     map<char, int> freq;
-                    llegeixLletresFitxer(f, freq);
+                    llegeixLletresFitxer(f, freq, ubicacioFitxer);
                 }
                 
                 f.close();
